@@ -1,6 +1,12 @@
 RootBeer Library Change Log
 ===========================
 
+# 0.1.2
+
+* Include /system_ext/bin when searching for the su binary @matoilic 
+* Additional enforcing of 16KB page size for all ADI native lib @gobetti
+
+
 # 0.1.1
 
 * Support for 16KB page sizes for native lib (Android 15 support) 

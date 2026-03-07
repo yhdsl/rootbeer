@@ -89,7 +89,7 @@ Available on [Maven Central](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22
 
 ```java
 dependencies {
-    implementation 'com.scottyab:rootbeer-lib:0.1.1'
+    implementation 'com.scottyab:rootbeer-lib:0.1.2'
 }
 ```
 
@@ -101,9 +101,7 @@ The native library in this application will now be built via Gradle and the late
 
 ### Sample app
 
-The sample app is published on Google Play to allow you to quickly and easily test the library. Enjoy! And please do feedback to us if your tests produce different results.
-
-<a href="https://play.google.com/store/apps/details?id=com.scottyab.rootbeer.sample&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"><img width="200" alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" /></a>
+The sample app allows you to quickly and easily test the library. Enjoy! And please do feedback to us if your tests produce different results.
 
 <img width="200" alt="screenshot" src="./art/ss_got_root_fail.png">
 
@@ -117,13 +115,14 @@ There must be more root checks to make this more complete. If you have one pleas
 * Kevin Kowalewski and others from this popular [StackOverflow post](https://stackoverflow.com/questions/1101380/determine-if-running-on-a-rooted-device?rq=1)
 * Eric Gruber's - Android Root Detection Techniques [article](https://blog.netspi.com/android-root-detection-techniques/)
 
-
 ## Other libraries
 
 If you dig this, you might like:
 
  * Tim Strazzere's [Anti emulator checks](https://github.com/strazzere/anti-emulator/) project
  * Scott Alexander-Bown's [SafetyNet Helper library](https://github.com/scottyab/safetynethelper) - coupled with server-side validation this is one of the best root detection approaches. See the [Google SafetyNet helper docs](https://developer.android.com/training/safetynet/index.html).
+
+#
 
 # Licence
 
