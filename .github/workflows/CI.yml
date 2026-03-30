@@ -38,6 +38,7 @@ jobs:
 
     - name: Sign APK
       run: |
+        export JAVA_HOME=$JAVA_HOME_21_X64
         APKSIGNER_JAR=$ANDROID_HOME/build-tools/36.1.0/lib/apksigner.jar
 
         java -jar $APKSIGNER_JAR sign \
