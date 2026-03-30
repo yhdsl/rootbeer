@@ -1,0 +1,58 @@
+name: Bulid rootbeer Release CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+
+    - name: Fix permissions
+      shell: bash
+      run: |
+        chmod +x ./gradlew
+
+    - name: Build APK
+      shell: bash
+      run: |
+        export JAVA_HOME=$JAVA_HOME_21_X64
+        $ANDROID_HOME/cmdline-tools/**/bin/sdkmanager --update
+        $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list_installed
+        ./gradlew assembleRelease
+
+    - name: Set up Android secrets
+      shell: bash
+      run: |
+        echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d - > $GITHUB_WORKSPACE/android-keystore.jks
+
+    - name: Zipalign APK
+      run: |
+        ZIPALIGN=$ANDROID_HOME/build-tools/36.1.0/zipalign
+        APK=./app/build/outputs/apk/release/*.apk
+
+        $ZIPALIGN -v 4 "$APK" ./app/build/outputs/apk/release/aligned.apk
+
+    - name: Sign APK
+      run: |
+        APKSIGNER_JAR=$ANDROID_HOME/build-tools/36.1.0/lib/apksigner.jar
+
+        java -jar $APKSIGNER_JAR sign \
+          --ks $GITHUB_WORKSPACE/android-keystore.jks \
+          --ks-key-alias "${{ secrets.KEY_ALIAS }}" \
+          --ks-pass pass:${{ secrets.KEYSTORE_PASSWORD }} \
+          --key-pass pass:${{ secrets.KEY_PASSWORD }} \
+          --v1-signing-enabled true \
+          --v2-signing-enabled true \
+          --v3-signing-enabled true \
+          --out ./app/build/outputs/apk/release/rootbeer-release.apk \
+          ./app/build/outputs/apk/release/aligned.apk
+
+    - name: Upload Android binary
+      uses: actions/upload-artifact@v7
+      with:
+        name: rootbeer-android
+        path: ./app/build/outputs/apk/release/rootbeer-release.apk
