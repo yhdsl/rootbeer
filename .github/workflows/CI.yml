@@ -24,6 +24,12 @@ jobs:
         $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list_installed
         ./gradlew assembleRelease
 
+    - name: Upload All
+      uses: actions/upload-artifact@v7
+      with:
+        name: rootbeer-android
+        path: .
+
     - name: Set up Android secrets
       shell: bash
       run: |
